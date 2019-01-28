@@ -9,7 +9,7 @@ nodejs几乎所有的事件机制都是观察者模式来实现的
 3. 触发事件
 
 # 事件与事件绑定
-```
+```JavaScript
 //引入events对象,创建eventEmitter对象
 var events = require('events');
 var eventEmitter = new events.eventEmitter

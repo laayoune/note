@@ -7,7 +7,7 @@
 
 安装后环境检查
 
-```
+```c
 $ node -v
 
 $ node   //进入node环境,使用两次control+c或者输入.exit
@@ -17,7 +17,7 @@ $ node   //进入node环境,使用两次control+c或者输入.exit
 nodejs环境内置的包管理工具
 
 [中国的npm服务器镜像npm.taobao.org](npm.taobao.org)
-```
+```c
 $ sudo npm install cnpm -g --registry=https://registry.npm.taobao.org //使用淘宝镜像安装cnpm
 ```
 
@@ -33,7 +33,7 @@ $ node hello.js
 
 # 写一个最简单的web服务器应用
 server.js
-```
+```JavaScript
 var http = require('http');
 
 http.createServer(function(req,res){

@@ -9,14 +9,14 @@
 * 非阻塞就是你先做,我先看看有其他事没有,完了告诉我一声
 
 # node.js的回调函数
-```
+```JavaScript
 //阻塞代码，必须读取文件成功后才能打印
 var fs = require('fs');
 var data = fs.readFileSync('data.txt'); //使用同步阻塞式读取文件
 console.log(data.toString());
 ```
 
-```
+```JavaScript
 //非阻塞代码
 var fs = require('fs');
 var data = fs.readFile('data.txt', function(err, data){ //回调函数
