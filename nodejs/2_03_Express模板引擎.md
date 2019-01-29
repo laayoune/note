@@ -40,3 +40,5 @@ app.get('/',function(req, res, next) {
 {% extends 'layout.html' %}
 ```
 设置模板
+
+详细查看 [expresstest实例](https://github.com/laayoune/note/tree/master/nodejs/expresstest)
