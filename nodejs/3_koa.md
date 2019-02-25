@@ -90,3 +90,7 @@ Koa Request 对象是在 node 的 vanilla 请求对象之上的抽象
 * response.header
 * response.status  获取响应状态,默认404
 * response.body 响应主体 (string\Buffer\Stream\Object || Array JSON\null )
+
+官网实例:
+[https://github.com/koajs/examples](https://github.com/koajs/examples)
+把很多东西都一段段的写好了
