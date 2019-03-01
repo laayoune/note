@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+    <script>
+        /* function Person(name, age){
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.showName = function(){
+            return `名字为: ${this.name}`;
+        };
+
+        let p1 = new Person('Strive', 18);
+        console.log(p1.showName()); */
+
+/*         function Person(name){
+            this.name = name;
+        }
+        Person.prototype.showName = function(){
+            return `名字是:${this.name}`;
+        }
+        //子类
+        function Student(name,skill){
+            Person.call(this,name); //继承属性
+            this.skill = skill;
+        }
+        Student.prototype = new Person(); //继承方法
+        Student.prototype.constructor = Student; //矫正constructor
+
+        //调用
+        var stu1 = new Student('张三','逃学');
+        console.log(stu1.name);
+        console.log(stu1.showName());
+        console.log(stu1); 
+*/
+/*
+        function Car(name){
+            this.name = name;
+        }
+        Car.prototype.showName = function(){
+            return `名字是:${this.name}`;
+        }
+        //子类
+        function Cruze(name,skill){
+            Car.call(this,name); //继承属性
+            this.skill = skill;
+        }
+        var _proto = Object.create(Car.prototype);
+        _proto.constructor = Cruze;
+        Cruze.prototype = _proto;
+        //调用
+        var cru = new Cruze('奥迪','A6');
+        console.log(cru.name);
+        console.log(cru.showName());
+        console.log(cru); */
+
+        /* class Person{
+            constructor(props){}
+            get aaa(){
+                return this.name;
+            }
+            set aaa(val){
+                this.name = val;
+            }
+        }
+        class Child extends Person{
+            constructor(props){
+                super(props);
+            }
+        }
+        let p1 = new Child();
+        p1.aaa = '123';
+        console.log(p1.aaa); */
+
+
+//父类
+class Person{
+	constructor(name){
+		this.name = name;
+	}
+	showName(){
+		return `名字是:${this.name}`;
+	}
+}
+//子类
+class Student extends Person{
+    constructor(name,skill){
+		super(name);
+		this.skill = skill;
+	}
+}
+//调用
+let stu1 = new Student('张三','写作业');
+console.log(stu1.name);
+console.log(stu1.showName());
+console.log(stu1);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
