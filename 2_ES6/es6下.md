@@ -320,26 +320,330 @@ try{
 ---
 ---
 ## 4. Set和WeakSet
+set:
+
+	类似数组，但是里面不能有重复值
+
+数组:
+```
+let arr  = ['a','b','a'];
+let arr = new Array();
+```
+
+set用法:
+
+```JavaScript
+let setArr = new Set(['a','b']);
+
+setArr.add('a'); //往setArr里面添加一项,不能重复
+setArr.delete('b'); //删除一项
+setArr.has('a'); //判断setArr里面有没有此值
+setArr.size; //个数
+setArr.clear(); //清空
+```
+
+for...of...
+
+循环:
+
+```JavaScript
+let setArr = new Set(['a','b','c','d']);
+
+for(let item of setArr){  //默认是values()
+	console.log(item); //a,b,c,d
+}
+for(let item of setArr.keys()){
+	console.log(item); //a,b,c,d
+}
+for(let item of setArr.values()){
+	console.log(item); //a,b,c,d
+}
+for(let [k,v] of setArr.entries()){
+	console.log(k,v); //a a,b b,c c,d d
+}
+setArr.forEach((value,index) =>{
+	console.log(value, index); //a a,b b,c c,d d
+});
+```
+
+let setArr = new Set().add('a').add('b').add('c');
+
+数组去重:
+
+```JavaScript
+let arr = [1,2,3,4,5,6,7,6,5,4,3,2,1,2,3,4,4];
+let newArr = [...new Set(arr)];
+console.log(newArr);
+```
+
+set数据结构变成数组:
+
+	[...set]
+
+想让set使用数组的，map循环和filter:
+```JavaScript
+let set = new Set([1,2,3]);
+set = new Set([...set].map(val=>val*2));
+let set2 = new Set([...set].filter(val=>val%2==0));
+console.log(set); //{2,4,6}
+console.log(set2); //{2}
+```
+
+new Set([]);存储数组，这种写法对
+
+new WeakSet();存储json，初始往里面添加东西，是不行的。不使用
+
+WeakSet:
+> 没有size，也没有clear();
+> 有， add(), has(), delete()
 
 ---
 ---
+
 ## 5. Map和WeakMap
 
+map:
+
+	类似json
+	json的key只能是字符串
+	map的key可以是任意类型
+
+使用:
+```JavaScript
+let map = new Map();
+
+map.set(key,value); //设置一个值
+map.get(key); //获取一个值
+map.delete(key); //删除一项
+map.has(key); //判断有没有
+map.clear(); //清空
+```
+
+循环
+```JavaScript
+for(let [key,value] of map){}
+for(let key of map.keys()){}
+for(let value of map.values()){}
+for(let [k,v] of map.entries()){}
+map.forEach((value, key) =>{
+	console.log(value, key);
+})
+```
+
+WeakMap():  key只能是对象
+
+总结：
+
+	Set	里面是数组，不重复，没有key，没有get方法
+
+	Map 对json功能增强，key可以是任意类型值
 
 ---
 ---
+
 ## 6. 数字变化和Math新增的东西
 
+二进制(binary):
+
+	let a = 0b010101;  //0b开头+二进制
+	console.log(a);  //十进制21
+
+八进制(octal):
+
+	let a = 0o666;   //0o开头+八进制
+	console.log(a);  //十进制438
+
+判断是否为数字,以前:
+
+Nunber()、parseInt()、 parseFloat()
+
+现在:
+
+Number.isNaN(NaN)	-> true
+
+Number.isFinite(a)   判断是不是数字	√
+
+Number.isInteger(a)  判断数字是不是整数	√
+
+Number.parseInt();
+Number.parseFloat();
+
+2**3 //2的3次方
+
+安全整数:
+
+	-(2**53-1) 到 (2**53-1)
+	Number.isSafeInteger(a); //是否为安全整数
+	Number.MAX_SAFE_INTEGER	最大安全整数
+	Number.MIN_SAFE_INTEGER	最小安全整数
+
+Math:
+```JavaScript
+Math.abs(); //返回绝对值
+Math.sqrt(); //返回数的平方根
+Math.sin(); //返回数值的正弦值
+
+Math.trunc(); //截取，只保留整数部分
+	Math.trunc(4.5)  ->  4
+	Math.trunc(4.9)  ->  4
+
+Math.sign(-5); //判断一个数到底是正数、负数、0
+	Math.sign(-5)  ->  -1
+	Math.sign(5)  -> 1
+	Math.sign(0)	->  0
+	Math.sign(-0)	->  -0
+	其他值，返回 NaN
+	
+Math.cbrt(); //计算一个数立方根
+	Math.cbrt(27)  ->  3
+```
 
 ---
 ---
+
 ## 7. ES2018新增的东西
 
+1. 命名捕获
+
+> 语法:  (?<名字>)
+```JavaScript
+let str = '2018-03-20';
+let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+let {year, month ,day} = str.match(reg).groups;
+console.log(year, month, day);
+```
+
+反向引用命名捕获:
+> 语法:  \k<名字>
+```JavaScript
+let reg = /^(?<Strive>welcome)-\k<Strive>$/;
+//匹配: ‘welcome-welcome’
+let reg = /^(?<Strive>welcome)-\k<Strive>-\1$/;
+//匹配: 'welcome-welcome-welcome'
+```
+
+替换:
+> 语法:  $<名字>
+```JavaScript
+let str = '2018-12-03'
+let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+str = str.replace(reg,'$<day>/$<month>/$<year>');
+console.log(str); // 03/12/2018
+//也可以
+str = str.replace(reg, (...args)=>{
+	//console.log(args)
+	let {year, month, day} = args[args.length-1];
+	return `${day}/${month}/${year}`;
+});
+console.log(str);
+```
+
+2. dotAll 模式s
+
+之前 '.' 在正则里表示匹配任意东西， 但是不包括 \n
+```
+let reg = /\w+/gims; //s就是dotAll模式
+```
+
+3. 标签函数
+
+```JavaScript
+function fn(){}
+fn()  //这样调用就是普通函数
+fn`aaa`  //标签函数使用
+
+function fn(args){
+	return args[0].toUpperCase();
+}
+console.log(fn`welcome`);
+```
+
 ---
 ---
+
 ## 8. Proxy的使用
+Proxy:代理
+> 扩展(增强)对象、方法(函数)一些功能
 
+比如:Vue
+> Vue.config.keyCodes.enter=65
+Proxy作用: 比如vue中拦截
+> 预警、上报、扩展功能、统计、增强对象等等
+
+proxy是设计模式一种，代理模式
+```
+let obj ={
+	name:'Strive'
+};
+//您访问了name
+obj.name  // Strive
+```
+
+语法:
+```JavaScript
+new Proxy(target, handler);
+new Proxy(被代理的对象,对代理的对象做什么操作)
+
+handler:
+{
+	set(){},  //设置干的事情
+	get(){},  //获取干的事情
+	deleteProperty(){},  //删除拦截
+	has(){}  //检测有没有这个东西  ‘xxx’ in obj
+	apply()  //调用函数处理,拦截方法
+	.....
+}
+```
+如:
+```JavaScript
+let obj = {
+	name:'Strive'
+};
+let newObj = new Proxy(obj,{
+	get(target, property){
+		//console.log(target, property);
+		console.log(`您访问了${property}属性`);
+		return target[property];
+	}
+});
+
+console.log(newObj.name); //访问name前代理一些事情
+```
+访问一个对象身上属性，默认不存在的时候返回undefined，希望如果不存在拦截给出错误(警告)信息：
+```JavaScript
+let obj = {
+	name:'Strive'
+};
+let newObj = new Proxy(obj,{
+	get(target, property){
+		if(property in target){
+			return target[property];
+		}else{
+			return '不存在';
+		}
+	}
+});
+
+console.log(newObj.age); //不存在属性,希望返回错误而不是undefined
+```
 
 ---
 ---
+
 ## 9. Reflect的使用
+apply(target, context, args){}
+Reflect.apply(调用的函数，this指向，参数数组);
+
+fn.call()
+fn.apply()  类似
+
+Reflect: 反射
+
+	Object.xxx  语言内部方法
+		Object.defineProperty
+	放到Reflect对象身上
+	通过Reflect对象身上直接拿到语言内部东西
+
+	'assign' in Object    ->   Reflect.has(Object, 'assign')
+
+	delete json.a	    ->   Reflect.deleteProperty(json, 'a');

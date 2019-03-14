@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+    <script>
+        //console.log(Math.ceil(4.6));
+        // let res = Reflect.apply(Math.ceil,null, [9.8]);
+        // console.log(res);
+
+        function show(...args){
+            console.log(this);
+            console.log(args);
+        }
+        show(1,2,3,4);
+        show.call('abc', 1,2,3,4);
+        show.apply('abcd',[1,2,3,4]);
+        Reflect.apply(show, 'aaaa', [1,2,3,4]);
+
+        //console.log('assign' in Object);
+        console.log(Reflect.has(Object, 'assign'));
+        
+
+        let json ={a:1, b:2};
+        /* delete json.a;
+        console.log(json); */
+        Reflect.deleteProperty(json, 'a');
+        console.log(json);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

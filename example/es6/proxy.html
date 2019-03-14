@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+    <script>
+        /* let obj = {
+            name:'Strive'
+        };
+        let newObj = new Proxy(obj,{
+            get(target, property){
+                //console.log(target, property);
+                console.log(`您访问了${property}属性`);
+                return target[property];
+            }
+        });
+
+        console.log(newObj.name); //访问name前代理一些事情 */
+    
+        /* let obj = {
+            name:'Strive'
+        };
+        let newObj = new Proxy(obj,{
+            get(target, property){
+                if(property in target){
+                    return target[property];
+                }else{
+                    return '不存在';
+                }
+            }
+        });
+
+        console.log(newObj.age); //不存在属性,希望返回错误而不是undefined
+ */
+        
+        /* let obj =new Proxy({},{
+            set(target, prop, value){
+                console.log(target, prop, value);
+                target[prop]=value;
+            }
+        });
+
+        obj.a=123;
+        console.log(obj); */
+
+
+        /* let json = {
+            a:1,
+            b:2
+        };
+
+        let newJson = new Proxy(json, {
+            deleteProperty(target, property){
+                console.log(`您要删除${property}属性`);
+                //TODO
+                delete target[property];
+            },
+            has(target, property){
+                console.log(`判断是否存在调用has方法`);
+                //TODO
+                return property in target;
+            }
+        });
+
+        console.log('a' in newJson);
+
+        //delete newJson.a;
+
+        console.log(newJson); */
+
+        function sum(a,b){
+            return a+b;
+        }
+
+        let newSum = new Proxy(sum, {
+            apply(target, context, args){
+                //console.log(target, context, args);
+                //console.log(...arguments);
+                return Reflect.apply(...arguments);
+            }
+        });
+
+        console.log(newSum(2,3))
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
